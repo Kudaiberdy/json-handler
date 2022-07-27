@@ -1,0 +1,58 @@
+{
+    "sections": {
+        "Books": {
+            "Special": [
+                "Cyberpunk",
+                "Mangas",
+                "Engineering"
+            ],
+            "NonSpecial": [
+                "Drama",
+                "Comedy",
+                "Detective"
+            ]
+        },
+        "Movies": {
+            "Anime": [
+                "spokon",
+                "etti",
+                "mekha",
+                "yaoi"
+            ],
+            "Art": [
+                "Drama",
+                "Detective",
+                "Comedy",
+                "Adventure",
+                "triller",
+                "scary",
+                "political"
+            ],
+            "Documentary": {
+                "Historical": [
+                    "WorldWar",
+                    "13-15 century",
+                    "20-21 century"
+                ]
+            },
+            "Nature": [
+                "Animals",
+                "insects",
+                "ocean",
+                "Mountains"
+            ]
+        },
+        "Posts": {
+            "Habr": {},
+            "Medium": {},
+            "Kinopoisk": {
+                "20-21 century": [
+                    "Films",
+                    "TV series"
+                ]
+            },
+            "Meduza": {},
+            "LinkedIn": {}
+        }
+    }
+}
