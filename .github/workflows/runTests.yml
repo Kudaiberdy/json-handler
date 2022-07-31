@@ -12,24 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-
-      - name: Install
-        run: make install
-      - name: Run tests
-        run: make test
-
       - name: Run tests & publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
-          CC_TEST_REPORTER_ID: 29418b1cb0251dcade5d4abde94a507cfb225590b5518708ca77babc1d645f3a
+          CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
         with:
           coverageCommand: make test-coverage
           coverageLocations: ${{ github.workplace }}/build/logs/clover.xml:clover
