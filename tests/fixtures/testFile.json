@@ -54,5 +54,6 @@
             "Meduza": {},
             "LinkedIn": {}
         }
-    }
+    },
+    "test": "testWord"
 }
