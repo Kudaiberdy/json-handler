@@ -21,7 +21,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Source/FindInJson.php"
+            "app/FindInJson/FindInJson.php"
         ]
     },
     "autoload-dev": {
