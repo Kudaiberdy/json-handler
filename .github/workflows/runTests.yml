@@ -12,6 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Install
+        run: make install
+      - name: Run tests
+        run: make test
+
       - name: Run tests & publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
         env:
