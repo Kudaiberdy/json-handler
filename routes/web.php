@@ -14,3 +14,7 @@
 */
 
 $router->post('/find', 'FindInJsonController@find');
+
+$router->get('/', function () use ($router) {
+    return $router->app->version();
+});

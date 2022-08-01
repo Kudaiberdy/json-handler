@@ -48,7 +48,7 @@ function find(string $needle, array|string $nodes, string $ancestry = '', array 
     }, $paths);
 }
 
-function findInJson(string $needle, $jsonFile): array
+function findInJson(string $needle, $jsonFile)
 {
     return [$needle => find($needle, $jsonFile)];
 }
