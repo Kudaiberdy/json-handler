@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run tests/publish test-coverage
 
 on:
   push:
@@ -26,11 +26,11 @@ jobs:
       - name: Run tests
         run: make test
 
-#      - name: Run tests & publish code coverage
-#        uses: paambaati/codeclimate-action@v3.0.0
-#        env:
-#          CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
-#        with:
-#          coverageCommand: make test-coverage
-#          coverageLocations: ${{ github.workplace }}/build/logs/clover.xml:clover
-#          debug: true
+      - name: Run tests-coverage & publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make test-coverage
+          coverageLocations: ${{ github.workplace }}/build/logs/clover.xml:clover
+          debug: true
