@@ -18,7 +18,7 @@ function reduce(array $array, callable $callback, $initial = null)
     return $result;
 }
 
-function find(string $needle, array|string $nodes, string $ancestry = '', array $paths = [], $nodeName = ''): array|string
+function findInArr(string $needle, array|string $nodes, string $ancestry = '', array $paths = [], $nodeName = ''): array|string
 {
     if (str_contains($nodeName, $needle)) {
         $paths[] = $ancestry;
@@ -44,11 +44,11 @@ function find(string $needle, array|string $nodes, string $ancestry = '', array 
     }
 
     return reduce($nodes, function ($newPaths, $node, $key) use ($needle, $newAncestry) {
-        return find($needle, $node, $newAncestry, $newPaths, $key);
+        return findInArr($needle, $node, $newAncestry, $newPaths, $key);
     }, $paths);
 }
 
-function findInJson(string $needle, $jsonFile)
+function find(string $needle, array $jsonToArr): array
 {
-    return [$needle => find($needle, $jsonFile)];
+    return [$needle => findInArr($needle, $jsonToArr)];
 }

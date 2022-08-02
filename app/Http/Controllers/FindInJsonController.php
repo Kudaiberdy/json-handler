@@ -3,15 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use function App\FindInJson\findInJson;
+use function App\FindInJson\find;
 
 class FindInJsonController extends Controller
 {
-    public function find(Request $request)
+    public function search(Request $request)
     {
         $needle = $request->query('query');
         $haystack = json_decode($request->getContent(), true);
-        $result = findInJson($needle, $haystack);
+        $result = find($needle, $haystack);
         return response()->json($result, 200, ['Content-Type' => 'application/json'], JSON_UNESCAPED_SLASHES);
     }
 }
