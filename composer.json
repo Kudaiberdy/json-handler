@@ -1,6 +1,6 @@
 {
     "name": "kudaiberdy/find-in-json",
-    "description": "The Laravel Lumen Framework.",
+    "description": "Simple web API",
     "keywords": ["framework", "laravel", "lumen"],
     "license": "MIT",
     "type": "project",
