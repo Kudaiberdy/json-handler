@@ -1,5 +1,7 @@
 RewriteEngine On
-RewriteBase /
+RewriteBase /find-in-json/
 
-RewriteCond %{REQUEST} !-f
-RewriteRule ^(.*)$ public/index.php?$1 [L,QSA]
+RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
+
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
