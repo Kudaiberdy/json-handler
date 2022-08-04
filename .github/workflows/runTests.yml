@@ -3,7 +3,7 @@ name: Run tests/publish test-coverage
 on:
   push:
     branches:
-      - '**'
+      - main
     tags:
       - '**'
 
