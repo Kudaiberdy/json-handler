@@ -1,29 +1,7 @@
-<IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
+RewriteEngine On
+RewriteBase /find-in-json/
 
-    RewriteEngine On
+RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
 
-    # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
-
-    # Handle Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ public/index.php [L]
-</IfModule>
-
-#RewriteEngine On
-#RewriteBase /find-in-json/
-#
-#RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
-#RewriteRule ^ %1 [L,NE,R=302]
-#
-#RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
