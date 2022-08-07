@@ -2,8 +2,9 @@ name: Run tests/publish test-coverage
 
 on:
   push:
+    pull_request:
     branches:
-      - main
+      - master
     tags:
       - '**'
 
