@@ -3,7 +3,7 @@
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use function App\FindInJson\find;
+use App\Utilities\Json;
 
 class FindInJsonTest extends TestCase
 {
@@ -13,7 +13,7 @@ class FindInJsonTest extends TestCase
     public function testFindInJson(string $needle, string $haystack, string $expect): void
     {
         $jsonToArr = json_decode(file_get_contents($haystack), true);
-        $actual = json_encode(find($needle, $jsonToArr));
+        $actual = Json::search($needle, $jsonToArr);
 
         $this->assertJsonStringEqualsJsonFile($expect, $actual);
     }

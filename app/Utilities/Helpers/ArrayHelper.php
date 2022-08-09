@@ -1,6 +1,6 @@
 <?php
 
-namespace App\FindInJson;
+namespace App\Utilities\ArrayHelpers;
 
 function isAssocArr(array $array): bool
 {
@@ -46,9 +46,4 @@ function findInArr(string $needle, array|string $nodes, string $ancestry = '', a
     return reduce($nodes, function ($newPaths, $node, $key) use ($needle, $newAncestry) {
         return findInArr($needle, $node, $newAncestry, $newPaths, $key);
     }, $paths);
-}
-
-function find(string $needle, array $jsonToArr): array
-{
-    return [$needle => findInArr($needle, $jsonToArr)];
 }
