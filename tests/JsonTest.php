@@ -19,6 +19,18 @@ class JsonTest extends TestCase
     }
 
     /**
+     * @return void
+     */
+    public function testValidate(): void
+    {
+        $validJson = file_get_contents(__DIR__ . '/fixtures/jsonValidate/validJson.json');
+        $invalidJson = file_get_contents(__DIR__ . '/fixtures/jsonValidate/invalidJson.json');
+        $rules = ['name', 'phone', 'country', 'region', 'numberrange', 'email'];
+        $this->assertTrue(Json::validate($validJson, $rules));
+        $this->assertFalse(Json::validate($invalidJson, $rules));
+    }
+
+    /**
      * @return array
      */
     public function additionProvider(): array
@@ -26,18 +38,18 @@ class JsonTest extends TestCase
         return [
             [
                 "Anime",
-                __DIR__ . '/fixtures/testFile.json',
-                __DIR__ . '/fixtures/expected/expectAnime.json'
+                __DIR__ . '/fixtures/findInJson/testFile.json',
+                __DIR__ . '/fixtures/findInJson/expected/expectAnime.json'
             ],
             [
                 "testWord",
-                __DIR__ . '/fixtures/testFile.json',
-                __DIR__ . '/fixtures/expected/expectTest.json'
+                __DIR__ . '/fixtures/findInJson/testFile.json',
+                __DIR__ . '/fixtures/findInJson/expected/expectTest.json'
             ],
             [
                 "Drama",
-                __DIR__ . '/fixtures/testFile.json',
-                __DIR__ . '/fixtures/expected/expectDrama.json'
+                __DIR__ . '/fixtures/findInJson/testFile.json',
+                __DIR__ . '/fixtures/findInJson/expected/expectDrama.json'
             ]
         ];
     }
