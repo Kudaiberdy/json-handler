@@ -10,7 +10,8 @@ class FindInJsonController extends Controller
     public function search(Request $request)
     {
         $needle = $request->query('query');
-        $haystack = json_decode($request->getContent(), true);
+        $haystack = $request->getContent();
+        dump($haystack);
         $result = Json::search($needle, $haystack);
         return response()->json($result, 200, ['Content-Type' => 'application/json'], JSON_UNESCAPED_SLASHES);
     }

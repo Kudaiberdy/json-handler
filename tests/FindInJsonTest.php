@@ -12,8 +12,8 @@ class FindInJsonTest extends TestCase
      */
     public function testFindInJson(string $needle, string $haystack, string $expect): void
     {
-        $jsonToArr = json_decode(file_get_contents($haystack), true);
-        $actual = Json::search($needle, $jsonToArr);
+        $json = file_get_contents($haystack);
+        $actual = Json::search($needle, $json);
 
         $this->assertJsonStringEqualsJsonFile($expect, $actual);
     }
