@@ -13,7 +13,8 @@
 |
 */
 
-$router->post('/find', 'FindInJsonController@search');
+$router->post('/find', 'JsonController@search');
+$router->post('/validate', 'JsonController@validate');
 
 $router->get('/', function () use ($router) {
     return $router->app->version();

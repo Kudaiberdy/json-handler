@@ -5,7 +5,7 @@ namespace Tests;
 use PHPUnit\Framework\TestCase;
 use App\Utilities\Json;
 
-class FindInJsonTest extends TestCase
+class JsonTest extends TestCase
 {
     /**
      * @dataProvider additionProvider
