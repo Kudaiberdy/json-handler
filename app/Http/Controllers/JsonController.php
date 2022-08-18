@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Utilities\Json;
-use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use App\Connections\AMQPConnection;
 
 class JsonController extends Controller
 {
@@ -28,6 +29,7 @@ class JsonController extends Controller
     {
         $json = $request->getContent();
         $res = Json::validate($json, $rules);
+
         if ($res) {
             $connection = new AMQPStreamConnection(
                 'localhost',
