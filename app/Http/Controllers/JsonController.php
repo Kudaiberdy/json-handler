@@ -29,7 +29,7 @@ class JsonController extends Controller
         $res = Json::validate($json, $rules);
 
         if ($res) {
-            $connection = new AMQPConnection(__DIR__ . '/../../../amqpconf.ini');
+            $connection = new AMQPConnection(__DIR__ . '/../../../configs/amqp.ini');
             $connection->declare_connectioin('router', 'push-queue', 'push');
             $message = $connection->createJsonMessage($json);
             $connection->publish_message($message);
@@ -37,6 +37,7 @@ class JsonController extends Controller
 
             return response('valid');
         }
+
         return response('invalid');
     }
 }

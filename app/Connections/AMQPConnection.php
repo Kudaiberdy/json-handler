@@ -10,6 +10,7 @@ class AMQPConnection extends AMQPStreamConnection
     public $exchange;
     public $queue;
     public $routingKey;
+
     public function __construct($pathToConf)
     {
         $conf = parse_ini_file($pathToConf);
