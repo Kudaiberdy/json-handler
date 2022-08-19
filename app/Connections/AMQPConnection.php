@@ -21,7 +21,7 @@ class AMQPConnection extends AMQPStreamConnection
         parent::__construct($host, $port, $user, $password);
     }
 
-    public function publish_data($exchange, $queue, $routingKey)
+    public function declare_connectioin($exchange, $queue, $routingKey)
     {
         $this->exchange = $exchange;
         $this->queue = $queue;
@@ -44,6 +44,15 @@ class AMQPConnection extends AMQPStreamConnection
             'content_type' => 'application/json',
             'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
         ]);
+    }
+
+    public function publish_message($message)
+    {
+        $this->channel()->basic_publish(
+            $message,
+            $this->exchange,
+            $this->routingKey
+        );
     }
 
     public function closeConnection()
