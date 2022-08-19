@@ -12,7 +12,7 @@ class Controller extends BaseController
     {
         [$key, $value] = explode('=', $request->getQueryString());
         $connection = new DBConnection();
-        $result = json_encode($connection->index($key, $value));
+        $result = $connection->index($key, $value);
         $contentType = 'application/json';
 
         return response($result)->withHeaders(['Content-Type' => $contentType]);

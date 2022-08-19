@@ -26,7 +26,8 @@ class DBConnection extends \PDO
     {
         $statment = "SELECT * FROM users WHERE $key='$value'";
         try {
-            return $this->query($statment)->fetchAll(self::FETCH_ASSOC);
+            $result = $this->query($statment)->fetchAll(self::FETCH_ASSOC);
+            return json_encode($result);
         } catch (\PDOException $e) {
             return $e;
         }
