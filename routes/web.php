@@ -15,6 +15,7 @@
 
 $router->post('/find', 'JsonController@find');
 $router->post('/validate', 'JsonController@validate');
+$router->get('/index', 'Controller@index');
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
