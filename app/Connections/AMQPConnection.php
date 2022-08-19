@@ -7,8 +7,9 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class AMQPConnection extends AMQPStreamConnection
 {
-    public $connection;
-
+    public $exchange;
+    public $queue;
+    public $routingKey;
     public function __construct($pathToConf)
     {
         $conf = parse_ini_file($pathToConf);
@@ -17,32 +18,37 @@ class AMQPConnection extends AMQPStreamConnection
         $user = $conf['user'];
         $password = $conf['password'];
 
-        parent::__construct(...$conf);
+        parent::__construct($host, $port, $user, $password);
     }
 
-    public function exchange_declare($params = [])
+    public function publish_data($exchange, $queue, $routingKey)
     {
-        $this->channel->queue_declare(
-            'push-queue',
+        $this->exchange = $exchange;
+        $this->queue = $queue;
+        $this->routingKey = $routingKey;
+
+        $chanel = $this->channel();
+        $chanel->exchange_declare($exchange, 'direct');
+        $chanel->queue_declare(
+            $queue,
             false,
             true,
             false
         );
+        $chanel->queue_bind($queue, $exchange, $routingKey);
     }
 
-    public function queue_declare($params = [])
+    public function createJsonMessage($data)
     {
-        $this->channel->queue_declare(
-            'push-queue',
-            false,
-            true,
-            false
-        );
+        return new AMQPMessage($data, [
+            'content_type' => 'application/json',
+            'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
+        ]);
+    }
 
-        $this->channel->queue_bind(
-            'push-queue',
-            'router',
-            'push'
-        );
+    public function closeConnection()
+    {
+        $this->channel()->close();
+        $this->close();
     }
 }

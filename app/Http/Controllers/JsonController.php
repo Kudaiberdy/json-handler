@@ -31,44 +31,17 @@ class JsonController extends Controller
         $res = Json::validate($json, $rules);
 
         if ($res) {
-            $connection = new AMQPStreamConnection(
-                'localhost',
-                5672,
-                'guest',
-                'guest'
-            );
-            $channel = $connection->channel();
-            $channel->exchange_declare(
-                'router',
-                'direct'
-            );
-
-            $channel->queue_declare(
-                'push-queue',
-                false,
-                true,
-                false
-            );
-
-            $channel->queue_bind(
-                'push-queue',
-                'router',
-                'push'
-            );
-
-            $message = new AMQPMessage($json, [
-                'content_type' => 'application/json',
-                'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
-            ]);
-
-            $channel->basic_publish(
+            $connection = new AMQPConnection(__DIR__ . '/../../../amqpconf.ini');
+            $connection->publish_data('router', 'push-queue', 'push');
+            $message = $connection->createJsonMessage($json);
+            $connection->channel()->basic_publish(
                 $message,
                 'router',
                 'push'
             );
 
-            $channel->close();
-            $connection->close();
+            $connection->closeConnection();
+
             return response('valid');
         }
         return response('invalid');
