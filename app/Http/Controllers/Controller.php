@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use App\Utilities\DBConnection;
+use App\Connections\DBConnection;
 
 class Controller extends BaseController
 {

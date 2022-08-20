@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Utilities;
+namespace App\Connections;
 
 class DBConnection extends \PDO
 {
@@ -24,7 +24,7 @@ class DBConnection extends \PDO
 
     public function index($key, $value)
     {
-        $statment = "SELECT * FROM users WHERE $key='$value'";
+        $statment = "SELECT * FROM users WHERE $key LIKE '%$value%'";
         try {
             $result = $this->query($statment)->fetchAll(self::FETCH_ASSOC);
             return json_encode($result);
