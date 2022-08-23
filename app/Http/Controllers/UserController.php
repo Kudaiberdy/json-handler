@@ -12,8 +12,6 @@ class UserController extends Controller
     public function create(
         Request $request,
         array $rules = ['name', 'phone', 'country', 'region', 'numberrange', 'email'],
-        array $messages = [],
-        array $customAttributes = []
     )
     {
         $json = $request->getContent();

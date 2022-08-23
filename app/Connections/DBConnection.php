@@ -2,8 +2,6 @@
 
 namespace App\Connections;
 
-use Illuminate\Support\Facades\Http;
-
 class DBConnection extends \PDO
 {
     public function __construct(string $pathToConfig)
