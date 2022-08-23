@@ -12,16 +12,15 @@ class UserController extends Controller
     public function create(
         Request $request,
         array $rules = ['name', 'phone', 'country', 'region', 'numberrange', 'email'],
-    )
-    {
+    ) {
         $json = $request->getContent();
         $res = Json::validate($json, $rules);
 
         if ($res) {
             $connection = new AMQPConnection(__DIR__ . '/../../../configs/amqpconnection.ini');
-            $connection->declare_connectioin('router', 'push-queue', 'push');
+            $connection->declareConnectioin('router', 'push-queue', 'push');
             $message = $connection->createJsonMessage($json);
-            $connection->publish_message($message);
+            $connection->publishMessage($message);
             $connection->closeConnection();
 
             return response('valid');

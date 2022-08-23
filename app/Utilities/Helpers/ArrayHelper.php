@@ -18,8 +18,13 @@ function reduce(array $array, callable $callback, $initial = null)
     return $result;
 }
 
-function findInArr(string $needle, array|string $nodes, string $ancestry = '', array $paths = [], $nodeName = ''): array|string
-{
+function findInArr(
+    string $needle,
+    array|string $nodes,
+    string $ancestry = '',
+    array $paths = [],
+    string $nodeName = ''
+): array|string {
     if (str_contains($nodeName, $needle)) {
         $paths[] = $ancestry;
         return $paths;

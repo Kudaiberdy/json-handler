@@ -22,7 +22,7 @@ class AMQPConnection extends AMQPStreamConnection
         parent::__construct($host, $port, $user, $password);
     }
 
-    public function declare_connectioin($exchange, $queue, $routingKey)
+    public function declareConnectioin($exchange, $queue, $routingKey)
     {
         $this->exchange = $exchange;
         $this->queue = $queue;
@@ -47,7 +47,7 @@ class AMQPConnection extends AMQPStreamConnection
         ]);
     }
 
-    public function publish_message($message)
+    public function publishMessage($message)
     {
         $this->channel()->basic_publish(
             $message,

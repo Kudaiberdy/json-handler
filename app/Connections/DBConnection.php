@@ -11,7 +11,7 @@ class DBConnection extends \PDO
         $port = $config['port'];
         $dbname = $config['dbname'];
         $user = $config['user'];
-        $password =$config['password'];
+        $password = $config['password'];
 
         $dsn = "mysql:host={$server};dbname={$dbname}";
 
