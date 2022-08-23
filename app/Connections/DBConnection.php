@@ -2,11 +2,13 @@
 
 namespace App\Connections;
 
+use Illuminate\Support\Facades\Http;
+
 class DBConnection extends \PDO
 {
-    public function __construct()
+    public function __construct(string $pathToConfig)
     {
-        $config = parse_ini_file(__DIR__ . '/../../configs/dbconnection.ini');
+        $config = parse_ini_file($pathToConfig);
         $server = $config['server'];
         $port = $config['port'];
         $dbname = $config['dbname'];

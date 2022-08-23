@@ -7,9 +7,9 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class AMQPConnection extends AMQPStreamConnection
 {
-    public $exchange;
-    public $queue;
-    public $routingKey;
+    private $exchange;
+    private $queue;
+    private $routingKey;
 
     public function __construct($pathToConf)
     {
