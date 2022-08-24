@@ -16,7 +16,3 @@
 $router->post('/find', 'JsonController@find');
 $router->post('/create', 'UserController@create');
 $router->get('/index', 'UserController@index');
-
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
