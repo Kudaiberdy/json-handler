@@ -16,6 +16,7 @@ class DBClientConnection
 
         $this->host = "{$server}:{$port}";
     }
+
     public function index($key, $value)
     {
         $uri = "{$this->host}/index?{$key}={$value}";
