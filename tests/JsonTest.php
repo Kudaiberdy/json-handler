@@ -26,8 +26,8 @@ class JsonTest extends TestCase
         $validJson = file_get_contents(__DIR__ . '/fixtures/jsonValidate/validJson.json');
         $invalidJson = file_get_contents(__DIR__ . '/fixtures/jsonValidate/invalidJson.json');
         $rules = ['name', 'phone', 'country', 'region', 'numberrange', 'email'];
-        $this->assertTrue(Json::validate($validJson, $rules));
-        $this->assertFalse(Json::validate($invalidJson, $rules));
+        $this->assertTrue(Json::isValid($validJson, $rules));
+        $this->assertFalse(Json::isValid($invalidJson, $rules));
     }
 
     /**

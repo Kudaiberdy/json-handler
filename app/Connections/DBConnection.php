@@ -13,7 +13,7 @@ class DBConnection extends \PDO
         $user = $config['user'];
         $password = $config['password'];
 
-        $dsn = "mysql:host={$server};dbname={$dbname}";
+        $dsn = "mysql:host={$server};port={$port};dbname={$dbname}";
 
         try {
             parent::__construct($dsn, $user, $password);

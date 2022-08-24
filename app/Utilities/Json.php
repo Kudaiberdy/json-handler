@@ -12,7 +12,7 @@ class Json
         return json_encode([$needle => findInArr($needle, $jsonToArr)], JSON_UNESCAPED_SLASHES);
     }
 
-    public static function validate(string $json, array $validFields)
+    public static function isValid(string $json, array $validFields)
     {
         $jsonToArr = json_decode($json, true);
         $keys = array_keys($jsonToArr);
