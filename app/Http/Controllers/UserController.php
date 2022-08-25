@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Connections\AMQPConnection;
-use App\Connections\DBClientConnection;
 use App\Utilities\Json;
 use Illuminate\Http\Request;
 
@@ -14,12 +12,13 @@ class UserController extends Controller
         array $rules = ['name', 'phone', 'country', 'region', 'numberrange', 'email'],
     ) {
         $json = $request->getContent();
+
         if (Json::isValid($json, $rules)) {
             $cache = $this->cache();
-            $emailsFromDb = $cache->get('emails');
+            $emailsFromCache = $cache->get('emails') ?: [];
             $email = json_decode($json, true)['email'];
 
-            if (in_array($email, $emailsFromDb)) {
+            if (in_array($email, $emailsFromCache)) {
                 return response('Email already exists');
             }
 
@@ -39,9 +38,14 @@ class UserController extends Controller
     {
         [$key, $value] = explode('=', $request->getQueryString());
         $connection = $this->DBClientConnection();
-        $result = $connection->index($key, $value);
-        $contentType = 'application/json';
+        $cache = $this->cache();
+        $cacheKey = "{$key}:{$value}";
+        $result = $cache->get($cacheKey);
 
-        return response($result)->withHeaders(['Content-Type' => $contentType]);
+        if ($result === false) {
+            $result = $connection->index($key, $value);
+        }
+
+        return response($result)->withHeaders(['Content-Type' => 'application/json']);
     }
 }

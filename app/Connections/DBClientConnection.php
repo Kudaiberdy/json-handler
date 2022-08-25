@@ -20,8 +20,6 @@ class DBClientConnection
     public function index($key, $value)
     {
         $uri = "{$this->host}/index?{$key}={$value}";
-        $response = Http::get($uri);
-
-        return $response->json();
+        return Http::get($uri);
     }
 }
