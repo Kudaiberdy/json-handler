@@ -16,9 +16,9 @@ class UserController extends Controller
         if (Json::isValid($json, $rules)) {
             $cache = $this->cache();
             $emailsFromCache = $cache->get('emails') ?: [];
-            $email = json_decode($json, true)['email'];
+            $currentEmail = json_decode($json, true)['email'];
 
-            if (in_array($email, $emailsFromCache)) {
+            if (in_array($currentEmail, $emailsFromCache)) {
                 return response('Email already exists');
             }
 

@@ -39,11 +39,14 @@ class AMQPConnection extends AMQPStreamConnection
         $chanel->queue_bind($queue, $exchange, $routingKey);
     }
 
-    public function createJsonMessage($data)
-    {
+    public function createJsonMessage(
+        $data,
+        $contentType = 'application/json',
+        $deliveryMode = AMQPMessage::DELIVERY_MODE_PERSISTENT
+    ) {
         return new AMQPMessage($data, [
-            'content_type' => 'application/json',
-            'delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT
+            'content_type' => $contentType,
+            'delivery_mode' => $deliveryMode
         ]);
     }
 
