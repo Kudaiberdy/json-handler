@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    /**
+     * @param Request $request
+     * @param array $rules
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     */
     public function create(
         Request $request,
         array $rules = ['name', 'phone', 'country', 'region', 'numberrange', 'email'],
-    ) {
+    ): \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory {
         $json = $request->getContent();
 
         if (Json::isValid($json, $rules)) {
@@ -23,7 +28,7 @@ class UserController extends Controller
             }
 
             $amqpConnection = $this->AMQPConnection();
-            $amqpConnection->declareConnectioin('router', 'push-queue', 'push');
+            $amqpConnection->declareConnection('router', 'push-queue', 'push');
             $message = $amqpConnection->createJsonMessage($json);
             $amqpConnection->publishMessage($message);
             $amqpConnection->closeConnection();
@@ -34,7 +39,11 @@ class UserController extends Controller
         return response('Data invalid');
     }
 
-    public function index(Request $request)
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     */
+    public function index(Request $request): \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
     {
         [$key, $value] = explode('=', $request->getQueryString());
         $connection = $this->DBClientConnection();

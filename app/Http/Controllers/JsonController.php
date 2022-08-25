@@ -7,13 +7,16 @@ use App\Utilities\Json;
 
 class JsonController extends Controller
 {
-    public function find(Request $request)
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
+     */
+    public function find(Request $request): \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
     {
         $needle = $request->query('query');
         $haystack = $request->getContent();
         $result = Json::search($needle, $haystack);
-        $contentType = 'application/json';
 
-        return response($result)->withHeaders(['Content-Type' => $contentType]);
+        return response($result)->withHeaders(['Content-Type' => 'application/json']);
     }
 }

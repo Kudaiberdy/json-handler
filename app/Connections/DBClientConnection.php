@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class DBClientConnection
 {
-    private $host;
+    private string $host;
 
     public function __construct(string $pathToConfig)
     {
@@ -17,7 +17,12 @@ class DBClientConnection
         $this->host = "{$server}:{$port}";
     }
 
-    public function index($key, $value)
+    /**
+     * @param string $key
+     * @param string $value
+     * @return \Illuminate\Http\Client\Response
+     */
+    public function index(string $key, string $value): \Illuminate\Http\Client\Response
     {
         $uri = "{$this->host}/index?{$key}={$value}";
         return Http::get($uri);

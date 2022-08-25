@@ -7,11 +7,11 @@ use PhpAmqpLib\Message\AMQPMessage;
 
 class AMQPConnection extends AMQPStreamConnection
 {
-    private $exchange;
-    private $queue;
-    private $routingKey;
+    private string $exchange;
+    private string $queue;
+    private string $routingKey;
 
-    public function __construct($pathToConf)
+    public function __construct(string $pathToConf)
     {
         $conf = parse_ini_file($pathToConf);
         $host = $conf['host'];
@@ -22,7 +22,13 @@ class AMQPConnection extends AMQPStreamConnection
         parent::__construct($host, $port, $user, $password);
     }
 
-    public function declareConnectioin($exchange, $queue, $routingKey)
+    /**
+     * @param string $exchange
+     * @param string $queue
+     * @param string $routingKey
+     * @return void
+     */
+    public function declareConnection(string $exchange, string $queue, string $routingKey): void
     {
         $this->exchange = $exchange;
         $this->queue = $queue;
@@ -39,18 +45,28 @@ class AMQPConnection extends AMQPStreamConnection
         $chanel->queue_bind($queue, $exchange, $routingKey);
     }
 
+    /**
+     * @param $data
+     * @param $contentType
+     * @param $deliveryMode
+     * @return AMQPMessage
+     */
     public function createJsonMessage(
         $data,
         $contentType = 'application/json',
         $deliveryMode = AMQPMessage::DELIVERY_MODE_PERSISTENT
-    ) {
+    ): AMQPMessage {
         return new AMQPMessage($data, [
             'content_type' => $contentType,
             'delivery_mode' => $deliveryMode
         ]);
     }
 
-    public function publishMessage($message)
+    /**
+     * @param $message
+     * @return void
+     */
+    public function publishMessage($message): void
     {
         $this->channel()->basic_publish(
             $message,
@@ -59,7 +75,11 @@ class AMQPConnection extends AMQPStreamConnection
         );
     }
 
-    public function closeConnection()
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    public function closeConnection(): void
     {
         $this->channel()->close();
         $this->close();
