@@ -20,5 +20,5 @@ nodev-install:
 	composer install --no-dev
 
 rsync:
-	rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . kudaiberdy@shmidt.icu.dev:/home/kudaiberdy/test
+	rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . kudaiberdy@shmidt.icu:/home/kudaiberdy/test
 
