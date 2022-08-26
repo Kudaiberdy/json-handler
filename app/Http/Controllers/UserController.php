@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Connections\AMQPConnection;
+use App\Connections\DBClientConnection;
 use App\Utilities\Json;
 use Illuminate\Http\Request;
 
@@ -19,7 +21,7 @@ class UserController extends Controller
         $json = $request->getContent();
 
         if (Json::isValid($json, $rules)) {
-            $amqpConnection = $this->AMQPConnection();
+            $amqpConnection = new AMQPConnection(__DIR__ . '/../../../configs/amqpconnection.ini');
             $amqpConnection->declareConnection('router', 'push-queue', 'push');
             $message = $amqpConnection->createJsonMessage($json);
             $amqpConnection->publishMessage($message);
@@ -38,7 +40,9 @@ class UserController extends Controller
     public function index(Request $request): \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
     {
         [$key, $value] = explode('=', $request->getQueryString());
-        $connection = $this->DBClientConnection();
+        $connection = new DBClientConnection(
+            __DIR__ . '/../../../configs/dbclientconnection.ini'
+        );
         $result = $connection->index($key, $value);
 
         return response($result)->withHeaders(['Content-Type' => 'application/json']);
