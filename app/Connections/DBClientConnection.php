@@ -2,7 +2,7 @@
 
 namespace App\Connections;
 
-use Illuminate\Support\Facades\Http;
+//use Illuminate\Support\Facades\Http;
 
 class DBClientConnection
 {
@@ -20,11 +20,11 @@ class DBClientConnection
     /**
      * @param string $key
      * @param string $value
-     * @return \Illuminate\Http\Client\Response
+     * @return false|string
      */
-    public function index(string $key, string $value): \Illuminate\Http\Client\Response
+    public function index(string $key, string $value): false|string
     {
-        $uri = "{$this->host}/index?{$key}={$value}";
-        return Http::get($uri);
+        $uri = "http://{$this->host}/index?{$key}={$value}";
+        return file_get_contents($uri);
     }
 }
