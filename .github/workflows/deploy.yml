@@ -22,5 +22,7 @@ jobs:
       - run: echo "${{ secrets.PRIVATE_SSH_KEY }}" > "$HOME/.ssh/key"
       - run: chmod 600 "$HOME/.ssh/key"
 
-      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . kudaiberdy@shmidt.icu:/var/www/json-handler
+      - run: make nodev-install
+      - run: make autoload
+      - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . ${{ secrets.DIST }}
 
