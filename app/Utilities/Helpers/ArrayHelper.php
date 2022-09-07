@@ -7,7 +7,7 @@ function isAssocArr(array $array): bool
     return count(array_filter(array_keys($array), 'is_string')) > 0;
 }
 
-function reduce(array $array, callable $callback, $initial = null)
+function arrayReduce(array $array, callable $callback, $initial = null)
 {
     $result = $initial;
 
@@ -48,7 +48,7 @@ function findInArr(
         return $paths;
     }
 
-    return reduce($nodes, function ($newPaths, $node, $key) use ($needle, $newAncestry) {
+    return arrayReduce($nodes, function ($newPaths, $node, $key) use ($needle, $newAncestry) {
         return findInArr($needle, $node, $newAncestry, $newPaths, $key);
     }, $paths);
 }
