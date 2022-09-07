@@ -24,5 +24,6 @@ jobs:
 
       - run: make nodev-install
       - run: make autoload
+      - run: rm tests/ -rf
       - run: rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . ${{ secrets.DIST }}
 
