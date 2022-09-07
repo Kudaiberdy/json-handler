@@ -2,8 +2,6 @@
 
 namespace App\Connections;
 
-//use Illuminate\Support\Facades\Http;
-
 class DBClientConnection
 {
     private string $host;

@@ -25,7 +25,7 @@ function findInArr(
     array $paths = [],
     string $nodeName = ''
 ): array|string {
-    if (str_contains($nodeName, $needle)) {
+    if (stripos($nodeName, $needle) !== false) {
         $paths[] = $ancestry;
         return $paths;
     }
@@ -33,7 +33,7 @@ function findInArr(
     $newAncestry = ($ancestry === '/') ? "{$ancestry}{$nodeName}" : "$ancestry/$nodeName";
 
     if (!is_array($nodes)) {
-        if (str_contains($nodes, $needle)) {
+        if (stripos($nodes, $needle) !== false) {
             $paths[] = $newAncestry;
         }
         return $paths;
@@ -41,7 +41,7 @@ function findInArr(
 
     if (!isAssocArr($nodes)) {
         foreach ($nodes as $item) {
-            if (str_contains($item, $needle)) {
+            if (stripos($item, $needle) !== false) {
                 $paths[] = $newAncestry;
             }
         }
